@@ -53,5 +53,7 @@ Comment.prototype = {
         return this.blog;
     }, getComment: function() {
         return this.comment;
+    }, getJSON: function() {
+        return JSON.stringify(Comment);
     }
 }

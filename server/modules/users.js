@@ -47,5 +47,7 @@ User.prototype = {
         return this.password;
     }, getSocialMedia: function() {
         return this.social;
+    }, getJSON: function() {
+        return JSON.stringify(User);
     }
 }

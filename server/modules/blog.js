@@ -59,5 +59,7 @@ Blog.prototype = {
         return this.title;
     }, getContent: function() {
         return this.content;
+    }, getJSON: function() {
+        return JSON.stringify(Blog);
     }
 }
