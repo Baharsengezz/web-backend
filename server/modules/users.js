@@ -7,6 +7,7 @@ function User(id,username, password, email, firstName, lastName) {
   this.username = username;
   this.email = email;
   this.password = password;
+  this.social = [];
 }
 
 User.prototype = {
