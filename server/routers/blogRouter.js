@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 
-var controller = require('../controllers/mainController');
+var controller = require('../controllers/blogController');
 
 //GET Functions
 router.get('/', controller.index);
