@@ -1,20 +1,25 @@
+
+var path = require('path');
+var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
-var path = require('path');
-var route = require('./server/routers/mainRouter');
-var bodyParser = require('body-parser');
+var admin = require("firebase-admin");
 
-app.use(bodyParser.urlencoded({ extended: false }))
+// Firebase API Integration
+var serviceAccount = require("path/to/serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://kodevi-cd585.firebaseio.com"
+});
 
-// EJS
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, './server/views'));
-
+//Body JsonParser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/', route);
+
+require('./server/routers/mainRouter')(app);
 
 
 app.listen(8000);
