@@ -6,7 +6,7 @@ var app = express();
 var admin = require("firebase-admin");
 
 // Firebase API Integration
-var serviceAccount = require("path/to/serviceAccountKey.json");
+var serviceAccount = require("./serviceFirebaseKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://kodevi-cd585.firebaseio.com"
@@ -17,9 +17,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/', route);
 
-require('./server/routers/mainRouter')(app);
+
+require('./server/routers/routerManager')(app);
 
 
 app.listen(8000);
