@@ -9,7 +9,7 @@ var route_comment = require('./commentRouter');
 //Routing URL
 module.exports = function(app){
 
-    app.use('/main', route_api);
+    app.use('/main', route_main);
     app.use('/user',route_user);
     app.use('/blog',route_blog);
     app.use('/comment',route_comment);
