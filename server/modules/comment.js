@@ -57,3 +57,5 @@ Comment.prototype = {
         return JSON.stringify(Comment);
     }
 }
+
+module.exports = Comment;
