@@ -32,7 +32,7 @@ module.exports.addUser = function (req,res){
 
 
 /*------------------------------
-updateUser :: Add a new user on database
+updateUser :: Update existing user on database
 queries :: 
           - uname : username   (required)
           - pass  : password   (required)
