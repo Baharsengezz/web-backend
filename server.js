@@ -3,12 +3,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
-var admin = require("firebase-admin");
+var firebase = require("firebase-admin");
 
 // Firebase API Integration
 var serviceAccount = require("./serviceFirebaseKey.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
   databaseURL: "https://kodevi-cd585.firebaseio.com"
 });
 
