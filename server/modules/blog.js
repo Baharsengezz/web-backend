@@ -63,3 +63,5 @@ Blog.prototype = {
         return JSON.stringify(Blog);
     }
 }
+
+module.exports = Blog;
