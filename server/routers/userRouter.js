@@ -6,9 +6,8 @@ var router = express.Router();
 var controller = require('../controllers/userController');
 
 //GET Functions
-router.get('/', controller.index);
+router.get('/add', controller.addUser);
+router.get('/update', controller.updateUser);
 
-//POST Functions
-router.post('/contact', controller.sentEmail);
 
 module.exports = router;
