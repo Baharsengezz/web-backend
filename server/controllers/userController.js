@@ -1,11 +1,64 @@
 //Still Developed
+const request= require('request');
+const User = require('../modules/users');
 
+let firebase = require("firebase-admin");
 
-var user = require('../modules/users.js');
-var db = firebase.database();
-var userRef= db.child('users');
+/*------------------------------
+addUser :: Add a new user on database
+queries :: 
+          - uname : username   (required)
+          - pass  : password   (required)
+          - email : email	   (required)
+          - first : first name (optional)
+          - last : last name   (optional)
 
+example :: localhost:8000/user/add?uname=kodevi&pass=00000&email=email@kodevi.org&first=Kod&last=Evi
+--------------------------------- */
 module.exports.addUser = function (req,res){
 
-	usersRef.set();
+  // Get a key for a new user.
+  let newUserKey = firebase.database().ref().child('user').push().key;
+
+  // A new user entry.
+  let newUser = new User( newUserKey, req.query.uname, req.query.pass, req.query.email, req.query.first, req.query.last );
+
+  // Write the new user simultaneously in the user list.
+  let commits = {};
+  commits['/user/' + newUserKey] = newUser;
+  firebase.database().ref().update(commits);
+  return true;
+}
+
+
+/*------------------------------
+updateUser :: Add a new user on database
+queries :: 
+          - uname : username   (required)
+          - pass  : password   (required)
+          - email : email	   (required)
+          - first : first name (optional)
+          - last : last name   (optional)
+
+example :: localhost:8000/user/update?uname=kodevi&pass=00000&email=email@kodevi.org&first=Kod&last=Evi
+---------------------------------*/
+module.exports.updateUser = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().first, data.val().last );
+  			
+  			// Updating User
+  			updatingUser.setUser( req.query.uname, req.query.pass, req.query.email, req.query.first, req.query.last );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
 }

@@ -1,4 +1,4 @@
-function User(id,username, password, email, firstName, lastName) {
+function User(id,username, password, email, firstName ='', lastName ='') {
   this.id = id;
   this.name = {
     'first': firstName,
@@ -12,7 +12,16 @@ function User(id,username, password, email, firstName, lastName) {
 
 User.prototype = {
     constructor: User
-    , setFullName: function (firstName, lastName) {
+    , setUser(username, password, email, firstName ='', lastName ='') {
+		  this.name = {
+		    'first': firstName,
+		    'last' : lastName,
+		  };
+		  this.username = username;
+		  this.email = email;
+		  this.password = password;
+		  this.social = [];
+	}, setFullName: function (firstName, lastName) {
     	this.name = {
 					   'first': firstName,
 					   'last' : lastName,
@@ -51,3 +60,5 @@ User.prototype = {
         return JSON.stringify(User);
     }
 }
+
+module.exports = User;
