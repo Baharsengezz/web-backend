@@ -64,10 +64,10 @@ module.exports.updateUser = function (req,res){
 }
 
 /*------------------------------
-updateUser :: Update existing user on database
+updateUserName :: Update username which existing user
 queries :: 
-          - uname : username    (required)
-          - new  : new username (required)
+          - uname : username     (required)
+          - new   : new username (required)
 
 example :: localhost:8000/user/update/username?uname={username}&new={new_username}
 ---------------------------------*/
