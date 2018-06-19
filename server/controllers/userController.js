@@ -56,7 +56,7 @@ module.exports.updateUser = function (req,res){
   			updatingUser.setUser( req.query.uname, req.query.pass, req.query.email, req.query.first, req.query.last );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -85,7 +85,7 @@ module.exports.updateUserName = function (req,res){
   			updatingUser.setUsername( req.query.new );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -114,7 +114,7 @@ module.exports.updatePassword = function (req,res){
   			updatingUser.setPassword( req.query.new );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -143,7 +143,7 @@ module.exports.updateEmail = function (req,res){
   			updatingUser.setEmail( req.query.new );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -173,7 +173,7 @@ module.exports.updateFullName = function (req,res){
   			updatingUser.setFullName( req.query.first, req.query.last );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -202,7 +202,7 @@ module.exports.updateFirstName = function (req,res){
   			updatingUser.setFirstName( req.query.first );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -231,7 +231,7 @@ module.exports.updateLastName = function (req,res){
   			updatingUser.setLastName( req.query.last );
 
   			// Update the user data simultaneously in the existing user list.
-			usersRef.child(data.key).update(updatingUser);
+			  usersRef.child(data.key).update(updatingUser);
 	    });
 
 	});
@@ -253,7 +253,7 @@ module.exports.deleteUser = function (req,res){
 	    snapshot.forEach(function(data) {
 
 			// Delete the user data simultaneously in the existing user list.
-			usersRef.child(data.key).remove();
+			  usersRef.child(data.key).remove();
 	    });
 
 	});
