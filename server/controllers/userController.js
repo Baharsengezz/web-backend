@@ -91,3 +91,32 @@ module.exports.updateUserName = function (req,res){
 	});
 	return true;
 }
+
+/*------------------------------
+updatePassword :: Update password which existing user
+queries :: 
+          - uname : username     (required)
+          - new   : new password (required)
+
+example :: localhost:8000/user/update/password?uname={username}&new={new_password}
+---------------------------------*/
+module.exports.updatePassword = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setPassword( req.query.new );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
