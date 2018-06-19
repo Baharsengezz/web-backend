@@ -30,6 +30,8 @@ User.prototype = {
     	this.name['first'] = firstName;
     }, setLastName: function (lastName) {
     	this.name['last'] = lastName;
+    }, setUsername: function (username) {
+    	this.username = username;
     }, setEmail: function (email) {
     	this.email = email;
     }, setPassword: function (password) {

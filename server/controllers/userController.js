@@ -13,7 +13,7 @@ queries ::
           - first : first name (optional)
           - last : last name   (optional)
 
-example :: localhost:8000/user/add?uname=kodevi&pass=00000&email=email@kodevi.org&first=Kod&last=Evi
+example :: localhost:8000/user/add?uname={username}&pass={00000}&email={email_address}&first={name}&last={surname}
 --------------------------------- */
 module.exports.addUser = function (req,res){
 
@@ -50,10 +50,39 @@ module.exports.updateUser = function (req,res){
 	    snapshot.forEach(function(data) {
 
 	    	 // A new user entry.
-  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().first, data.val().last );
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
   			
   			// Updating User
   			updatingUser.setUser( req.query.uname, req.query.pass, req.query.email, req.query.first, req.query.last );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
+
+/*------------------------------
+updateUser :: Update existing user on database
+queries :: 
+          - uname : username    (required)
+          - new  : new username (required)
+
+example :: localhost:8000/user/update/username?uname={username}&new={new_username}
+---------------------------------*/
+module.exports.updateUserName = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setUsername( req.query.new );
 
   			// Update the user data simultaneously in the existing user list.
 			usersRef.child(data.key).update(updatingUser);
