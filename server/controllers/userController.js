@@ -120,3 +120,32 @@ module.exports.updatePassword = function (req,res){
 	});
 	return true;
 }
+
+/*------------------------------
+updateEmail :: Update email which existing user
+queries :: 
+          - uname : username     (required)
+          - new   : new email (required)
+
+example :: localhost:8000/user/update/email?uname={username}&new={new_email}
+---------------------------------*/
+module.exports.updateEmail = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setEmail( req.query.new );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
