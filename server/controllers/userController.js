@@ -237,3 +237,25 @@ module.exports.updateLastName = function (req,res){
 	});
 	return true;
 }
+
+/*------------------------------
+deleteUser :: Delete existing user
+queries :: 
+          - uname : username       (required)
+
+example :: localhost:8000/user/delete?uname={username}
+---------------------------------*/
+module.exports.deleteUser = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+			// Delete the user data simultaneously in the existing user list.
+			usersRef.child(data.key).remove();
+	    });
+
+	});
+	return true;
+}

@@ -14,6 +14,7 @@ router.get('/update/email', controller.updateEmail);
 router.get('/update/name', controller.updateFullName);
 router.get('/update/firstname', controller.updateFirstName);
 router.get('/update/lastname', controller.updateLastName);
+router.get('/delete', controller.deleteUser);
 
 
 module.exports = router;
