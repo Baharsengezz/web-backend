@@ -149,3 +149,91 @@ module.exports.updateEmail = function (req,res){
 	});
 	return true;
 }
+
+/*------------------------------
+updateFullName :: Update full name which existing user
+queries :: 
+          - uname : username       (required)
+          - first : new first name (required)
+          - last : new last name   (required)
+
+example :: localhost:8000/user/update/name?uname={username}&first={new_firstname}&last={new_lastname}
+---------------------------------*/
+module.exports.updateFullName = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setFullName( req.query.first, req.query.last );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
+
+/*------------------------------
+updateFirstName :: Update first name which existing user
+queries :: 
+          - uname : username       (required)
+          - first : new first name (required)
+
+example :: localhost:8000/user/update/firstname?uname={username}&first={new_firstname}
+---------------------------------*/
+module.exports.updateFirstName = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setFirstName( req.query.first );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
+
+/*------------------------------
+updateLastName :: Update last name which existing user
+queries :: 
+          - uname : username       (required)
+          - last : new last name   (required)
+
+example :: localhost:8000/user/update/lastname?uname={username}&last={new_lastname}
+---------------------------------*/
+module.exports.updateLastName = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+	    	 // A new user entry.
+  			let updatingUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+  			
+  			// Updating User
+  			updatingUser.setLastName( req.query.last );
+
+  			// Update the user data simultaneously in the existing user list.
+			usersRef.child(data.key).update(updatingUser);
+	    });
+
+	});
+	return true;
+}
