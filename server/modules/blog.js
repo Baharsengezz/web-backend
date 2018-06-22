@@ -1,12 +1,12 @@
 function Blog(id,user, email, title, content ) {
   this.id = id;
   this.author = {
-    'userID': userID,
-    'first': firstName,
-    'last' : lastName,
-    'fullName': firstName + ' ' + lastName,
-    'username': username,
-    'email': email,
+    'userID': user.id,
+    'first': user.name.first,
+    'last' : user.name.last,
+    'fullName': user.name.first+ ' ' + user.name.last,
+    'username': user.username,
+    'email': user.email,
   };
   this.title = title;
   this.content = content;
