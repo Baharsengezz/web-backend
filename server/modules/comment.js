@@ -3,10 +3,10 @@
 function Comment(id,user, blog, comment ) {
   this.id = id;
   this.author = {
-    'first': firstName,
-    'last' : lastName,
-    'fullName': firstName + ' ' + lastName,
-    'email': email,
+    'first': user.name.firstname,
+    'last' : user.name.lastname,
+    'fullName': user.name.firstname + ' ' + user.name.lastname,
+    'email': user.email,
   };
   this.blog = blog;
   this.comment = comment;
