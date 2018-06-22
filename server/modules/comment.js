@@ -14,16 +14,7 @@ function Comment(id,user, blog, comment ) {
 
 Comment.prototype = {
     constructor: Comment
-    , setComment: function (user, blog, comment) {
-        this.author = {
-          'first': user.name.firstname,
-          'last' : user.name.lastname,
-          'fullName': user.name.firstname + ' ' + user.name.lastname,
-          'email': user.email,
-        };
-        this.blog = blog;
-        this.comment = comment;
-    }, setAuthor: function (firstName, lastName,email) {
+    , setAuthor: function (firstName, lastName,email) {
     	this.author = {
                         'first': firstName,
                         'last' : lastName,
