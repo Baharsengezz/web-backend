@@ -6,7 +6,7 @@ var router = express.Router();
 var controller = require('../controllers/blogController');
 
 //GET Functions
+router.get('/createBlog', controller.createBlog);
 
-//POST Functions
 
 module.exports = router;
