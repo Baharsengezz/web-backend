@@ -150,13 +150,13 @@ example :: localhost:8000/comment/delete?comment={commentID}
 ---------------------------------*/
 module.exports.deleteComment = function (req,res){
   
-	let usersRef = firebase.database().ref().child('user');
-	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+	let commentRef = firebase.database().ref().child('comment');
+	commentRef.orderByChild('id').equalTo(req.query.comment).once("value").then( function(snapshot) {
 
 	    snapshot.forEach(function(data) {
 
-			// Delete the user data simultaneously in the existing user list.
-			  usersRef.child(data.key).remove();
+			// Delete the comment data simultaneously in the existing comment list.
+			  commentRef.child(data.key).remove();
 	    });
 
 	});
