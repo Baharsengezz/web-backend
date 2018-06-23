@@ -1,4 +1,4 @@
-function Blog(id, user, title, content ) {
+function Blog(id, user, title, content, publish_date) {
   this.id = id;
   this.author = {
     'userID': user.id,
