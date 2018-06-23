@@ -6,6 +6,7 @@ function Comment(id,user, blog, comment ) {
     'first': user.name.firstname,
     'last' : user.name.lastname,
     'fullName': user.name.firstname + ' ' + user.name.lastname,
+    'username': user.username,
     'email': user.email,
   };
   this.blog = blog;
@@ -14,12 +15,12 @@ function Comment(id,user, blog, comment ) {
 
 Comment.prototype = {
     constructor: Comment
-    , setAuthor: function (firstName, lastName,email) {
+    , setAuthor: function ( user ) {
     	this.author = {
-                        'first': firstName,
-                        'last' : lastName,
-                        'fullName': firstName + ' ' + lastName,
-                        'email': email,
+                        'first': user.name.first,
+                        'last' : user.name.last,
+                        'fullName': user.name.first + ' ' + user.name.last,
+                        'email': user.email,
                       };
     }, setUserID: function (userID) {
     	this.author['userID'] = userID;
