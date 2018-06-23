@@ -1,4 +1,4 @@
-function Blog(id,user, email, title, content ) {
+function Blog(id, user, title, content ) {
   this.id = id;
   this.author = {
     'userID': user.id,
@@ -14,14 +14,14 @@ function Blog(id,user, email, title, content ) {
 
 Blog.prototype = {
     constructor: Blog
-    , setAuthor: function (userID, firstName, lastName, username,email) {
+    , setAuthor: function (user) {
     	this.author = {
-                        'userID': userID,
-                        'first': firstName,
-                        'last' : lastName,
-                        'fullName': firstName + ' ' + lastName,
-                        'username': username,
-                        'email': email,
+                        'userID': user.id,
+                        'first': user.name.first,
+                        'last' : user.name.last,
+                        'fullName': user.name.first+ ' ' + user.name.last,
+                        'username': user.username,
+                        'email': user.email,
                       };
     }, setUserID: function (userID) {
     	this.author['userID'] = userID;
