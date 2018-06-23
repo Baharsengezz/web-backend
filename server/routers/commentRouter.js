@@ -9,6 +9,8 @@ var controller = require('../controllers/commentController');
 router.get('/add', controller.addComment);
 router.get('/update', controller.updateComment);
 router.get('/update/content', controller.updateComment);
+router.get('/update/author', controller.updateAuthor);
+router.get('/delete', controller.deleteComment)
 
 //POST Functions
 

@@ -47,7 +47,7 @@ queries ::
           - comment : commentID (required)
           - content : content   (required)
 
-example :: localhost:8000/blog/update?uname={username}&comment={commentID}&content={content}
+example :: localhost:8000/comment/update?uname={username}&comment={commentID}&content={content}
 ---------------------------------*/
 module.exports.updateComment = function (req,res){
   
@@ -97,7 +97,7 @@ queries ::
           - comment : commentID (required)
           - content : content   (required)
 
-example :: localhost:8000/blog/update?uname={username}&comment={commentID}&content={content}
+example :: localhost:8000/comment/update?uname={username}&comment={commentID}&content={content}
 ---------------------------------*/
 module.exports.updateAuthor = function (req,res){
   
@@ -138,4 +138,27 @@ module.exports.updateAuthor = function (req,res){
         firebase.database().ref().update(commits);
         return true;
     });   
+}
+
+
+/*------------------------------
+deleteComment :: Delete existing comment
+queries :: 
+          - comment : commentID (required)
+
+example :: localhost:8000/comment/delete?comment={commentID}
+---------------------------------*/
+module.exports.deleteComment = function (req,res){
+  
+	let usersRef = firebase.database().ref().child('user');
+	usersRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
+
+	    snapshot.forEach(function(data) {
+
+			// Delete the user data simultaneously in the existing user list.
+			  usersRef.child(data.key).remove();
+	    });
+
+	});
+	return true;
 }
