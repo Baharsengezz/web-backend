@@ -31,7 +31,7 @@ module.exports.createBlog = function (req,res){
     return true;
 }
 
-module.exports.setAuthor = function (req,res){
+module.exports.updateAuthor = function (req,res){
 
   let blogRef = firebase.database().ref().child('blogUser');
 
