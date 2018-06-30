@@ -14,6 +14,18 @@ function Blog(id, user, title, content, publish_date) {
 
 Blog.prototype = {
     constructor: Blog
+    , setBlog: function (user, title, content, publish_date){
+          this.author = {
+            'userID': user.id,
+            'first': user.name.first,
+            'last' : user.name.last,
+            'fullName': user.name.first+ ' ' + user.name.last,
+            'username': user.username,
+            'email': user.email,
+          };
+          this.title = title;
+          this.content = content;
+    }
     , setAuthor: function (user) {
     	this.author = {
                         'userID': user.id,

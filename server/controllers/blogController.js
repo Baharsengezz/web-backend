@@ -41,6 +41,51 @@ module.exports.addBlog = function (req,res){
     return true;
 }
 
+/*------------------------------
+updateBlog :: Update existing blog on database
+queries :: 
+          - blogID  : blog unique ID (required)
+          - uname   : username       (required)
+          - title   : blog title     (required)
+          - content : content        (required)
+example :: localhost:8000/blog/update?blogID={blog_unique_id}&uname={username}&title={blog_title}&content={content}
+--------------------------------*/
+module.exports.updateBlog = function (req,res){
+
+  let blogRef = firebase.database().ref().child('blog/'+ req.query.uname + '/');
+  let userRef = firebase.database().ref().child('user');
+
+  let updateDate = new Date();
+
+  blogRef.orderByChild('title').equalTo(req.query.title).once("value").then( function(BlogSnapshot) {
+
+      userRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(UserSnapshot) {
+
+          UserSnapshot.forEach(function(data) {
+                // New Blog Object for update
+                let blogUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
+              });
+
+          });
+
+//console.log(blogUser);
+
+
+      BlogSnapshot.forEach(function(data) {
+         // New Blog Object for update
+        let updatingBlog = new Blog ( blogUser, data.val().title, data.val().content, updateDate );
+        console.log(updatingBlog);
+        // Updating blogUser
+        updatingBlog.setBlog(updatingBlog);
+
+        // Update the blogUser data simultaneously in the existing blogUser list.
+        blogRef.child(data.key).update(updatingBlog);
+      });
+
+  });
+  return true;
+}
+
 module.exports.updateAuthor = function (req,res){
 
   let blogRef = firebase.database().ref().child('blogUser');
@@ -56,26 +101,7 @@ module.exports.updateAuthor = function (req,res){
   return true;
 }
 
-module.exports.updateBlog = function (req,res){
 
-  let blogRef = firebase.database().ref().child('blogUser');
-
-  blogRef.orderByChild('username').equalTo(req.query.uname).once("value").then( function(snapshot) {
-
-      snapshot.forEach(function(data) {
-         // A new blogUser entry.
-        let updatingBlogUser = new User( data.key, data.val().username, data.val().password, data.val().email, data.val().name.first, data.val().name.last );
-
-        // Updating blogUser
-        updatingBlogUser.setAuthor(  );
-
-        // Update the blogUser data simultaneously in the existing blogUser list.
-        blogRef.child(data.key).update(updatingBlogUser);
-      });
-
-  });
-  return true;
-}
 
 module.exports.deleteBlog = function (req,res){
 
