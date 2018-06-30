@@ -2,10 +2,20 @@
 
 const request = require('request');
 var Blog = require('../modules/blog');
+let User = require('../modules/users');
 
 let firebase = require("firebase-admin");
 
-module.exports.createBlog = function (req,res){
+
+/*------------------------------
+addBlog :: Add a new blog on database
+queries :: 
+          - uname   : username   (required)
+          - title   : blog title (required)
+          - content : content    (required)
+example :: localhost:8000/blog/add?uname={uname}&title={blog_title}&content={content}
+--------------------------------*/
+module.exports.addBlog = function (req,res){
 
     let userRef = firebase.database().ref().child('user');
     var publishDate = new Date();
